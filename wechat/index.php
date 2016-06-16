@@ -36,7 +36,8 @@ $server->setMessageHandler(function($message) use ($user) {
                //文本信息处理
         case 'text':
             $fromUser = $user->get($message->FromUserName);
-            return "{$fromUser->nickname} {$fromUser->openid}您好！欢迎关注!";
+            $content = $message->Content;
+            return "{$fromUser->nickname} {$fromUser->openid}您好！欢迎关注!" .$content;
             break;
         case 'image':
 
@@ -61,5 +62,35 @@ $server->setMessageHandler(function($message) use ($user) {
             break;
     }
 });
+
+$buttons = [
+    [
+        "type" => "click",
+        "name" => "今日歌曲",
+        "key"  => "V1001_TODAY_MUSIC"
+    ],
+    [
+        "name"       => "菜单",
+        "sub_button" => [
+            [
+                "type" => "view",
+                "name" => "搜索",
+                "url"  => "http://www.soso.com/"
+            ],
+            [
+                "type" => "view",
+                "name" => "视频",
+                "url"  => "http://v.qq.com/"
+            ],
+            [
+                "type" => "click",
+                "name" => "赞一下我们",
+                "key" => "V1001_GOOD"
+            ],
+        ],
+    ],
+];
+$menu = $app->menu;
+$menu->add($buttons);
 
 $server->serve()->send();
