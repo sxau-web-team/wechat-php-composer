@@ -24,7 +24,8 @@ $server->setMessageHandler(function($message) use ($user) {
         case 'event':
             switch ($message->Event) {
                 case 'subscribe':
-                    // code...
+                    $fromUser = $user->get($message->FromUserName);
+                    return "您好！欢迎关注!";
                     break;
 
                 default:
@@ -38,12 +39,13 @@ $server->setMessageHandler(function($message) use ($user) {
             return "{$fromUser->nickname} {$fromUser->openid}您好！欢迎关注!";
             break;
         case 'image':
+
             $mediaId  = $message->MediaId;
             return new Image(['media_id' => $mediaId]);
             break;
         case 'voice':
-            $mediaId  = $message->MediaId;
-            return new Voice(['media_id' => $mediaId]);
+            $fromUser = $user->get($message->FromUserName);
+            return "{$fromUser->nickname} {$fromUser->openid}您好！欢迎关注!";
             break;
         case 'video':
             $mediaId  = $message->MediaId;
