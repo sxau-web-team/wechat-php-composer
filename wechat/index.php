@@ -35,6 +35,7 @@ $server->setMessageHandler(function($message) use ($user) {
             $fromUser = $user->get($message->FromUserName);
             $content = $message->Content;
             if ($content=="模版消息" || $content == 'template') {
+                $notice = $app->notice;
                 $userId = 'OPENID';
                 $templateId = 'lOFwKZr1gloR0caommzl3yRnXia0NLiCWWajU1AzPOU';
                 $url = 'http://www.baidu.com';
