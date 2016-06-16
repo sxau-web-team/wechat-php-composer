@@ -5,11 +5,6 @@ RUN apt-get update && \
       git \
       libpq-dev \
 
-RUN pear install pear/PHP_CodeSniffer
-
-RUN pecl install hrtime
-RUN echo "extension=hrtime.so" > $PHP_INI_DIR/conf.d/hrtime.ini
-
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer
 
 WORKDIR /app
