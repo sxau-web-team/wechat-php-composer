@@ -11,7 +11,6 @@ $options = [
         'level' => 'debug',
         'file'  => '/tmp/easywechat.log',
     ],
-    // ...
 ];
 
 $app = new Application($options);
@@ -27,9 +26,7 @@ $server->setMessageHandler(function($message) use ($user) {
                     $fromUser = $user->get($message->FromUserName);
                     return "您好！欢迎关注!";
                     break;
-
                 default:
-                    // code...
                     break;
             }
             break;
@@ -37,6 +34,19 @@ $server->setMessageHandler(function($message) use ($user) {
         case 'text':
             $fromUser = $user->get($message->FromUserName);
             $content = $message->Content;
+            if ($content=="模版消息" || $content == 'template') {
+                $userId = 'OPENID';
+                $templateId = 'lOFwKZr1gloR0caommzl3yRnXia0NLiCWWajU1AzPOU';
+                $url = 'http://www.baidu.com';
+                $color = '#FF0000';
+                $data = array(
+                         "username"  => "范兆洁！",
+                         "name"   => "杜蕾斯",
+                         "price"  => "39.8元",
+                         "remark" => "欢迎再次购买！",
+                        );
+                $messageId = $notice->uses($templateId)->withUrl($url)->andData($data)->andReceiver($userId)->send();
+            }
             return "{$fromUser->nickname} {$fromUser->openid}您好！欢迎关注!" .$content;
             break;
         case 'image':
@@ -63,34 +73,34 @@ $server->setMessageHandler(function($message) use ($user) {
     }
 });
 
-$buttons = [
-    [
-        "type" => "click",
-        "name" => "今日歌曲",
-        "key"  => "V1001_TODAY_MUSIC"
-    ],
-    [
-        "name"       => "菜单",
-        "sub_button" => [
-            [
-                "type" => "view",
-                "name" => "搜索",
-                "url"  => "http://www.soso.com/"
-            ],
-            [
-                "type" => "view",
-                "name" => "视频",
-                "url"  => "http://v.qq.com/"
-            ],
-            [
-                "type" => "click",
-                "name" => "赞一下我们",
-                "key" => "V1001_GOOD"
-            ],
-        ],
-    ],
-];
-$menu = $app->menu;
-$menu->add($buttons);
+// $buttons = [
+//     [
+//         "type" => "click",
+//         "name" => "今日歌曲",
+//         "key"  => "V1001_TODAY_MUSIC"
+//     ],
+//     [
+//         "name"       => "菜单",
+//         "sub_button" => [
+//             [
+//                 "type" => "view",
+//                 "name" => "搜索",
+//                 "url"  => "http://www.soso.com/"
+//             ],
+//             [
+//                 "type" => "view",
+//                 "name" => "视频",
+//                 "url"  => "http://v.qq.com/"
+//             ],
+//             [
+//                 "type" => "click",
+//                 "name" => "赞一下我们",
+//                 "key" => "V1001_GOOD"
+//             ],
+//         ],
+//     ],
+// ];
+// $menu = $app->menu;
+// $menu->add($buttons);
 
 $server->serve()->send();
