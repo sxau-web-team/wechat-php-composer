@@ -20,8 +20,44 @@ $server = $app->server;
 $user = $app->user;
 
 $server->setMessageHandler(function($message) use ($user) {
-    $fromUser = $user->get($message->FromUserName);
-    return "{$fromUser->nickname} 您好！欢迎关注!";
+    switch ($message->MsgType) {
+        case 'event':
+            switch ($message->Event) {
+                case 'subscribe':
+                    // code...
+                    break;
+
+                default:
+                    // code...
+                    break;
+            }
+            break;
+               //文本信息处理
+        case 'text':
+            $fromUser = $user->get($message->FromUserName);
+            return "{$fromUser->nickname} {$fromUser->openid}您好！欢迎关注!";
+            break;
+        case 'image':
+            $mediaId  = $message->MediaId;
+            return new Image(['media_id' => $mediaId]);
+            break;
+        case 'voice':
+            $mediaId  = $message->MediaId;
+            return new Voice(['media_id' => $mediaId]);
+            break;
+        case 'video':
+            $mediaId  = $message->MediaId;
+            return new Video(['media_id' => $mediaId]);
+            break;
+        case 'location':
+            return new Text(['content' => $message->Label]);
+            break;
+        case 'link':
+            return new Text(['content' => $message->Description]);
+            break;
+        default:
+            break;
+    }
 });
 
 $server->serve()->send();
