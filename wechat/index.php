@@ -47,7 +47,7 @@ $server->setMessageHandler(function($message) use ($user) {
                          "remark" => "欢迎再次购买"
                         );
                 $messageId = $notice->uses($templateId)->withUrl($url)->andData($data)->andReceiver($userId)->send();
-                return $messageId;
+                return null;
             } else {
                 return "{$fromUser->nickname} {$fromUser->openid}您好！欢迎关注!" .$content;
             }
