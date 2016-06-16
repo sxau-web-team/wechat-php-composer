@@ -1,0 +1,30 @@
+{
+    "name": "dubuqingfeng/wechat-php",
+    "description": "wechat-php",
+    "keywords": [
+        "wechat",
+        "weixin",
+        "weixin-sdk",
+        "sdk"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "dubuqingfeng",
+            "email": "1135326346@qq.com",
+            "homepage": "http://dbqf.xyz",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php":">=5.5.0",
+        "ext-openssl": "*",
+        "overtrue/wechat": "~3.0",
+    },
+    "minimum-stability" : "dev",
+    "autoload": {
+        "psr-4": {
+            "EasyWeChat\\": "src/"
+        }
+    }
+}
