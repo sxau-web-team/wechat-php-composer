@@ -19,7 +19,7 @@
     "require": {
         "php":">=5.5.0",
         "ext-openssl": "*",
-        "overtrue/wechat": "~3.0",
+        "overtrue/wechat": "~3.0"
     },
     "minimum-stability" : "dev",
     "autoload": {
