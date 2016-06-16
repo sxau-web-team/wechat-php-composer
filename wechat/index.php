@@ -1,5 +1,5 @@
 <?php
-
+include '/app/vendor/autoload.php';
 use EasyWeChat\Foundation\Application;
 
 $options = [
