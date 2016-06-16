@@ -34,26 +34,9 @@ $server->setMessageHandler(function($message) use ($user) {
         case 'text':
             $fromUser = $user->get($message->FromUserName);
             $content = $message->Content;
-            if ($content=="模版消息" || $content == 'template') {
-                $notice = $app->notice;
-                $userId = 'oGnvlwMIZN2KxiLDjZMlwB4wLs1U';
-                $templateId = 'lOFwKZr1gloR0caommzl3yRnXia0NLiCWWajU1AzPOU';
-                $url = 'http://www.baidu.com';
-                $color = '#FF0000';
-                $data = array(
-                         "username"  => "范兆洁",
-                         "name"   => "杜蕾斯",
-                         "price"  => "39.8元",
-                         "remark" => "欢迎再次购买"
-                        );
-                $messageId = $notice->uses($templateId)->withUrl($url)->andData($data)->andReceiver($userId)->send();
-                return null;
-            } else {
-                return "{$fromUser->nickname} {$fromUser->openid}您好！欢迎关注!" .$content;
-            }
+            return "{$fromUser->nickname} {$fromUser->openid}您好！欢迎关注!" .$content;
             break;
         case 'image':
-
             $mediaId  = $message->MediaId;
             return new Image(['media_id' => $mediaId]);
             break;
@@ -72,6 +55,8 @@ $server->setMessageHandler(function($message) use ($user) {
             return new Text(['content' => $message->Description]);
             break;
         default:
+            $fromUser = $user->get($message->FromUserName);
+            return "未知错误。";
             break;
     }
 });
