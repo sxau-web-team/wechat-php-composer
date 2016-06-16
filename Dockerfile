@@ -7,6 +7,10 @@ RUN apt-get update && \
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer
 
+RUN ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime
+
+RUN echo "date.timezone = \"Europe/Paris\"" > /usr/local/etc/php/conf.d/timezone.ini
+
 WORKDIR /app
 
 COPY composer.json ./
