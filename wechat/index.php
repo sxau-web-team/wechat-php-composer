@@ -41,12 +41,13 @@ $server->setMessageHandler(function($message) use ($user) {
                 $url = 'http://www.baidu.com';
                 $color = '#FF0000';
                 $data = array(
-                         "username"  => "范兆洁！",
+                         "username"  => "范兆洁",
                          "name"   => "杜蕾斯",
                          "price"  => "39.8元",
-                         "remark" => "欢迎再次购买！",
+                         "remark" => "欢迎再次购买"
                         );
                 $messageId = $notice->uses($templateId)->withUrl($url)->andData($data)->andReceiver($userId)->send();
+                return $messageId;
             } else {
                 return "{$fromUser->nickname} {$fromUser->openid}您好！欢迎关注!" .$content;
             }
