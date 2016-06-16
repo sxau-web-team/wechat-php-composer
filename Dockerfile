@@ -13,4 +13,4 @@ COPY composer.json ./
 
 RUN composer install --prefer-source --no-interaction
 
-COPY . ./
+COPY . /var/www/html/
