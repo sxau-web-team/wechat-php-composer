@@ -26,6 +26,22 @@ $server->setMessageHandler(function($message) use ($user) {
                     $fromUser = $user->get($message->FromUserName);
                     return "您好！欢迎关注!";
                     break;
+                case 'CLICK':
+                    switch ($message->EventKey) {
+                        case 'V1001_GOOD':
+                            $response = $app->oauth->scopes(['snsapi_userinfo'])->redirect();
+                            $response->send(); exit();
+                            break;
+                        case 'V1001_TODAY_MUSIC':
+                            $fromUser = $user->get($message->FromUserName);
+                            $content = $message->Content;
+                            return "{$fromUser->nickname} 您好！欢迎关注!" .$content.$message;
+                            # code...
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
                 default:
                     break;
             }
